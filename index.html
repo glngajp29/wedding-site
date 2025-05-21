@@ -5,6 +5,26 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Undangan Rofiq dan Riya</title>
   <link rel="stylesheet" href="style.css" />
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyCX1_3YA9L1xx1AHQsUXGZ4x7p_U0_Pczc",
+      authDomain: "undangan-rofiq.firebaseapp.com",
+      projectId: "undangan-rofiq",
+      storageBucket: "undangan-rofiq.firebasestorage.app",
+      messagingSenderId: "647019327634",
+      appId: "1:647019327634:web:76dca38c2bbe91e82f764b",
+      measurementId: "G-25GHYB1YPQ"
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+    window.db = db;
+    window.firebase = firebase;
+  </script>
 </head>
 <body>
 
@@ -170,45 +190,6 @@
   <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
 
-  <script>
-    const firebaseConfig = {
-      apiKey: "AIzaSyCX1_3YA9L1xx1AHQsUXGZ4x7p_U0_Pczc",
-      authDomain: "undangan-rofiq.firebaseapp.com",
-      projectId: "undangan-rofiq",
-      storageBucket: "undangan-rofiq.firebasestorage.app",
-      messagingSenderId: "647019327634",
-      appId: "1:647019327634:web:76dca38c2bbe91e82f764b",
-      measurementId: "G-25GHYB1YPQ"
-    };
-
-    // Inisialisasi Firebase dan Firestore
-    firebase.initializeApp(firebaseConfig);
-    const db = firebase.firestore();
-
-    // Bikin global supaya bisa dipakai di script.js
-    window.db = db;
-    window.firebase = firebase;
-  </script>
 </head>
-<body>
-
-  <!-- Isi HTML lainnya -->
-  <form id="rsvp-form">
-    <input id="guest-name" placeholder="Nama">
-    <textarea id="guest-message" placeholder="Ucapan"></textarea>
-    <select id="guest-attendance">
-      <option value="">Pilih Kehadiran</option>
-      <option value="Hadir">Hadir</option>
-      <option value="Tidak Hadir">Tidak Hadir</option>
-    </select>
-    <button type="submit">Kirim</button>
-  </form>
-
-  <!-- Script kamu -->
-  <script src="script.js"></script>
-</body>
-</html>
-
-</body>
 </html>
 

@@ -1,47 +1,34 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8" />
+   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Undangan Rofiq dan Riya</title>
-  <link rel="stylesheet" href="style.css" />
-  
-  <!-- Firebase SDK via CDN -->
-<!-- Firebase App (the core Firebase SDK) -->
-<script src="https://www.gstatic.com/firebasejs/11.7.3/firebase-app-compat.js"></script>
 
-<!-- Tambahkan modul yang dibutuhkan -->
-<script src="https://www.gstatic.com/firebasejs/11.7.3/firebase-auth-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/11.7.3/firebase-firestore-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/11.7.3/firebase-storage-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/11.7.3/firebase-database-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/11.7.3/firebase-functions-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/11.7.3/firebase-messaging-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/11.7.3/firebase-analytics-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/11.7.3/firebase-remote-config-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/11.7.3/firebase-performance-compat.js"></script>
-  
-  <!-- Initialize Firebase -->
+  <!-- Firebase CDN scripts (gunakan versi terbaru jika perlu) -->
+  <script src="https://www.gstatic.com/firebasejs/11.7.3/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/11.7.3/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/11.7.3/firebase-storage-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/11.7.3/firebase-auth-compat.js"></script>
+
+  <!-- Konfigurasi Firebase -->
   <script>
-    // Fix untuk beberapa browser lama yang tidak mendukung ES modules
-    if (!('noModule' in HTMLScriptElement.prototype)) {
-      alert('Browser Anda mungkin tidak mendukung fitur terbaru website ini. Mohon gunakan browser terbaru seperti Chrome, Firefox, atau Edge.');
-    }
-    
-    // Your web app's Firebase configuration - REPLACE WITH YOUR OWN CONFIG
-   const firebaseConfig = {
+    const firebaseConfig = {
       apiKey: "AIzaSyD_pcQQfzF_0khbjwpG_IxTqpdVrXysWSc",
       authDomain: "rayarofiqwedding.firebaseapp.com",
       projectId: "rayarofiqwedding",
-      storageBucket: "rayarofiqwedding.firebasestorage.app",
+      storageBucket: "rayarofiqwedding.appspot.com",
       messagingSenderId: "168418586866",
       appId: "1:168418586866:web:632af302bd422bdbd8e06b",
       measurementId: "G-WBTPMHRG1C"
     };
-    
-    // Initialize Firebase
+
+    // Inisialisasi Firebase
     firebase.initializeApp(firebaseConfig);
+    // Optional: inisialisasi Firestore
+    const db = firebase.firestore();
   </script>
+  
 </head>
 <body>
 

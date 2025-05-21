@@ -209,39 +209,55 @@ const db = getFirestore(app);
 // =======================
 // 9. Form RSVP: Submit & Load Comments
 // =======================
-// Pastikan elemen sudah ada di HTML
 const form = document.getElementById("rsvp-form");
+const commentSection = document.getElementById("comment-section");
 
 form.addEventListener("submit", async (e) => {
-  e.preventDefault(); // Mencegah reload halaman
-
+  e.preventDefault();
   const name = document.getElementById("guest-name").value.trim();
   const message = document.getElementById("guest-message").value.trim();
   const attendance = document.getElementById("guest-attendance").value;
 
-  if (!name || !message || !attendance) {
-    alert("Mohon lengkapi semua isian!");
-    return;
-  }
-
-  try {
-    const db = window.db;
-    const colRef = db.collection("comments"); // Untuk compat SDK
-    await colRef.add({
+  if (name && message && attendance) {
+    await addDoc(collection(db, "comments"), {
       name,
       message,
       attendance,
-      timestamp: firebase.firestore.FieldValue.serverTimestamp()
+      timestamp: serverTimestamp()
     });
-
-    alert("Ucapan berhasil dikirim!");
     form.reset();
-  } catch (err) {
-    console.error("Gagal menyimpan ucapan:", err);
-    alert("Terjadi kesalahan saat mengirim ucapan.");
+    loadComments();
   }
 });
 
+async function loadComments() {
+  commentSection.innerHTML = "";
+  const q = query(collection(db, "comments"), orderBy("timestamp", "desc"));
+
+  try {
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((doc) => {
+      const data = doc.data();
+      const time = data.timestamp ? new Date(data.timestamp.seconds * 1000) : new Date();
+      const formattedTime = time.toLocaleString('id-ID');
+
+      const div = document.createElement("div");
+      div.classList.add("comment-card");
+      div.innerHTML = `
+        <div class="comment-name">
+          <strong>${data.name}</strong> <span class="attendance">(${data.attendance})</span>
+        </div>
+        <div class="comment-message">${data.message}</div>
+        <div class="comment-time">🕒 ${formattedTime}</div>
+      `;
+      commentSection.appendChild(div);
+    });
+  } catch (error) {
+    console.error("Error memuat komentar:", error);
+  }
+}
+
+loadComments();
 
 // =======================
 // 10. Toggle dan Salin Info Rekening Hadiah

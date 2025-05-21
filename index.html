@@ -5,26 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Undangan Rofiq dan Riya</title>
   <link rel="stylesheet" href="style.css" />
-  <!-- Firebase SDK -->
-<script src="https://www.gstatic.com/firebasejs/11.7.3/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/11.7.3/firebase-firestore-compat.js"></script>
-
-
+  
+  <!-- Penting: Tambahkan ini untuk memastikan script modules berjalan dengan benar -->
   <script>
-    const firebaseConfig = {
-      apiKey: "AIzaSyCX1_3YA9L1xx1AHQsUXGZ4x7p_U0_Pczc",
-      authDomain: "undangan-rofiq.firebaseapp.com",
-      projectId: "undangan-rofiq",
-      storageBucket: "undangan-rofiq.firebasestorage.app",
-      messagingSenderId: "647019327634",
-      appId: "1:647019327634:web:76dca38c2bbe91e82f764b",
-      measurementId: "G-25GHYB1YPQ"
-    };
-    // Initialize Firebase
-    firebase.initializeApp(firebaseConfig);
-    const db = firebase.firestore();
-    window.db = db;
-    window.firebase = firebase;
+    // Fix untuk beberapa browser lama yang tidak mendukung ES modules
+    if (!'noModule' in HTMLScriptElement.prototype) {
+      alert('Browser Anda mungkin tidak mendukung fitur terbaru website ini. Mohon gunakan browser terbaru seperti Chrome, Firefox, atau Edge.');
+    }
   </script>
 </head>
 <body>
@@ -68,7 +55,7 @@
       <div class="quote-overlay"></div>
       <div class="quote-content" data-animate>
         <blockquote>
-          “Dan di antara tanda-tanda (kebesaran)-Nya ialah Dia menciptakan pasangan-pasangan untukmu dari jenismu sendiri, agar kamu merasa tenteram kepadanya. Dia menjadikan di antaramu rasa kasih dan sayang. Sungguh, pada yang demikian itu benar-benar terdapat tanda-tanda (kebesaran Allah) bagi kaum yang berpikir.”
+          "Dan di antara tanda-tanda (kebesaran)-Nya ialah Dia menciptakan pasangan-pasangan untukmu dari jenismu sendiri, agar kamu merasa tenteram kepadanya. Dia menjadikan di antaramu rasa kasih dan sayang. Sungguh, pada yang demikian itu benar-benar terdapat tanda-tanda (kebesaran Allah) bagi kaum yang berpikir."
         </blockquote>
         <p class="quote-author">(QS. Ar-Rum: 21)</p>
       </div>
@@ -143,7 +130,7 @@
       <div class="rsvp-comments-container">
         <div class="comment-wrapper">
           <div id="comment-section">
-            <!-- komentar -->
+            <!-- komentar akan dimuat dari Firebase -->
           </div>
         </div>
         <div class="segment-divider-bot"></div>
@@ -183,14 +170,7 @@
 
   <div id="toast" class="toast">Berhasil disalin!</div>
 
-  <script src="script.js"></script>
-  <!-- Firebase SDK -->
+  <!-- PENTING: Gunakan type="module" agar import Firebase bekerja -->
   <script type="module" src="script.js"></script>
-
-  <!-- Firebase SDK v9 compat -->
-  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
-
-</head>
+</body>
 </html>
-

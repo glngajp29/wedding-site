@@ -166,6 +166,33 @@
   <!-- Firebase SDK -->
   <script type="module" src="script.js"></script>
 
+  <!-- Firebase SDKs (harus dimuat duluan sebelum script.js) -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.7.3/firebase-app.js";
+  import { getFirestore } from "https://www.gstatic.com/firebasejs/11.7.3/firebase-firestore.js";
+  import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.7.3/firebase-analytics.js";
+
+  const firebaseConfig = {
+    apiKey: "API_KEY_KAMU",
+    authDomain: "PROJEK.firebaseapp.com",
+    projectId: "PROJEK",
+    storageBucket: "PROJEK.appspot.com",
+    messagingSenderId: "123456789",
+    appId: "APP_ID_KAMU",
+    measurementId: "G-XXXXXX"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+  const analytics = getAnalytics(app);
+
+  // Kirim db ke window agar bisa diakses dari script.js
+  window.db = db;
+</script>
+
+<!-- Baru load script.js -->
+<script src="script.js"></script>
+
 
 </body>
 </html>

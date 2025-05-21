@@ -7,7 +7,6 @@ const timerElement = document.getElementById("timer");
 setInterval(() => {
   const now = new Date().getTime();
   let distance = targetDate - now;
-
   if (distance < 0) distance = 0;
 
   const days = Math.floor(distance / (1000 * 60 * 60 * 24));
@@ -16,22 +15,10 @@ setInterval(() => {
   const sec = Math.floor((distance % (1000 * 60)) / 1000);
 
   timerElement.innerHTML = `
-    <div class="time-box">
-      <div class="number">${String(days).padStart(2, '0')}</div>
-      <div class="label">Hari</div>
-    </div>
-    <div class="time-box">
-      <div class="number">${String(hrs).padStart(2, '0')}</div>
-      <div class="label">Jam</div>
-    </div>
-    <div class="time-box">
-      <div class="number">${String(min).padStart(2, '0')}</div>
-      <div class="label">Menit</div>
-    </div>
-    <div class="time-box">
-      <div class="number">${String(sec).padStart(2, '0')}</div>
-      <div class="label">Detik</div>
-    </div>
+    <div class="time-box"><div class="number">${String(days).padStart(2, '0')}</div><div class="label">Hari</div></div>
+    <div class="time-box"><div class="number">${String(hrs).padStart(2, '0')}</div><div class="label">Jam</div></div>
+    <div class="time-box"><div class="number">${String(min).padStart(2, '0')}</div><div class="label">Menit</div></div>
+    <div class="time-box"><div class="number">${String(sec).padStart(2, '0')}</div><div class="label">Detik</div></div>
   `;
 }, 1000);
 
@@ -39,26 +26,21 @@ setInterval(() => {
 // 2. Modal Galeri Foto
 // =======================
 function openModal(img) {
-  const modal = document.getElementById("imgModal");
-  const modalImg = document.getElementById("modalImg");
-  modal.style.display = "block";
-  modalImg.src = img.src;
+  document.getElementById("imgModal").style.display = "block";
+  document.getElementById("modalImg").src = img.src;
 }
-
 function closeModal() {
-  const modal = document.getElementById("imgModal");
-  modal.style.display = "none";
+  document.getElementById("imgModal").style.display = "none";
 }
 
 // =======================
-// 3. Efek Fade Out & Buka Undangan
+// 3. Buka Undangan & Fade Out
 // =======================
 function openInvitation() {
   const hero = document.getElementById("hero");
   const mainContent = document.getElementById("main-content");
 
   hero.classList.add("fade-out");
-
   setTimeout(() => {
     hero.style.display = "none";
     mainContent.style.display = "block";
@@ -66,74 +48,36 @@ function openInvitation() {
 }
 
 // =======================
-// 4. Scroll Control dan Event Listener Tombol Buka Undangan
+// 4. Scroll & Tombol Buka
 // =======================
 document.body.classList.add('noscroll');
-
-function smoothScrollTo(element, duration = 1000) {
-  const targetPosition = element.getBoundingClientRect().top + window.pageYOffset;
-  const startPosition = window.pageYOffset;
-  const distance = targetPosition - startPosition;
-  let startTime = null;
-
-  function animation(currentTime) {
-    if (startTime === null) startTime = currentTime;
-    const timeElapsed = currentTime - startTime;
-    const run = ease(timeElapsed, startPosition, distance, duration);
-    window.scrollTo(0, run);
-    if (timeElapsed < duration) requestAnimationFrame(animation);
-  }
-
-  function ease(t, b, c, d) {
-    t /= d / 2;
-    if (t < 1) return c / 2 * t * t + b;
-    t--;
-    return -c / 2 * (t * (t - 2) - 1) + b;
-  }
-
-  requestAnimationFrame(animation);
-}
-
 const openBtn = document.getElementById('openBtn');
 openBtn.addEventListener('click', () => {
   const mainContent = document.getElementById('main-content');
-  mainContent.style.display = 'block';
-
   document.body.classList.remove('noscroll');
-
+  mainContent.style.display = 'block';
   mainContent.scrollIntoView({ behavior: 'smooth' });
   openBtn.classList.add('hide');
-
-  setTimeout(() => {
-    openBtn.style.display = 'none';
-  }, 1000);
-
-  smoothScrollTo(mainContent, 1000);
+  setTimeout(() => openBtn.style.display = 'none', 1000);
 });
 
 // =======================
-// 5. Efek Parallax dan Blur Background Hero Saat Scroll
+// 5. Efek Parallax Hero
 // =======================
 (() => {
   const hero = document.querySelector('.hero');
-  let baseOffset = 0;
-  let currentOffset = baseOffset;
-  let targetOffset = baseOffset;
-  let maxBlur = 5;
-  let currentBlur = 0;
-  let targetBlur = 0;
-  let ticking = false;
+  let baseOffset = 0, currentOffset = 0, targetOffset = 0;
+  let maxBlur = 5, currentBlur = 0, targetBlur = 0, ticking = false;
 
   function lerp(start, end, t) {
     return start + (end - start) * t;
   }
 
   function onScroll() {
-    const scrollY = window.pageYOffset || document.documentElement.scrollTop;
+    const scrollY = window.pageYOffset;
     targetOffset = baseOffset - scrollY * 0.08;
-    targetOffset = Math.min(baseOffset, Math.max(targetOffset, baseOffset - 100));
+    targetOffset = Math.max(baseOffset - 100, targetOffset);
     targetBlur = maxBlur * Math.min(scrollY / 2300, 1);
-
     if (!ticking) {
       ticking = true;
       requestAnimationFrame(update);
@@ -143,7 +87,6 @@ openBtn.addEventListener('click', () => {
   function update() {
     currentOffset = lerp(currentOffset, targetOffset, 0.1);
     currentBlur = lerp(currentBlur, targetBlur, 0.1);
-
     hero.style.backgroundPositionY = `${currentOffset.toFixed(2)}px`;
     hero.style.filter = `blur(${currentBlur.toFixed(2)}px)`;
 
@@ -154,29 +97,23 @@ openBtn.addEventListener('click', () => {
     }
   }
 
-  document.addEventListener('scroll', () => {
-    onScroll();
-  });
+  document.addEventListener('scroll', onScroll);
 })();
 
 // =======================
-// 6. Intersection Observer untuk Animasi Elemen Saat Muncul di Viewport
+// 6. Intersection Observer
 // =======================
 const animateEls = document.querySelectorAll('[data-animate]');
 const observer = new IntersectionObserver(entries => {
   entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('visible');
-    } else {
-      entry.target.classList.remove('visible');
-    }
+    entry.target.classList.toggle('visible', entry.isIntersecting);
   });
 }, { threshold: 0.1 });
 
 animateEls.forEach(el => observer.observe(el));
 
 // =======================
-// 7. Putar Musik Background Saat Tombol Buka Undangan Diklik
+// 7. Musik Background
 // =======================
 const bgMusic = document.getElementById('bg-music');
 openBtn.addEventListener('click', () => {
@@ -186,10 +123,13 @@ openBtn.addEventListener('click', () => {
 });
 
 // =======================
-// 8. Firebase: Inisialisasi dan Setup Firestore
+// 8. Firebase Firestore Setup
 // =======================
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
-import { getDatabase, ref, set, onValue } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-database.js";
+import {
+  getFirestore, collection, addDoc, getDocs,
+  query, orderBy, serverTimestamp
+} from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyD_pcQQfzF_0khbjwpG_IxTqpdVrXysWSc",
@@ -199,15 +139,13 @@ const firebaseConfig = {
   messagingSenderId: "168418586866",
   appId: "1:168418586866:web:632af302bd422bdbd8e06b",
   measurementId: "G-WBTPMHRG1C"
-
 };
 
-
 const app = initializeApp(firebaseConfig);
-const database = getDatabase(app);
+const db = getFirestore(app);
 
 // =======================
-// 9. Form RSVP: Submit & Load Comments
+// 9. Form RSVP Komentar
 // =======================
 const form = document.getElementById("rsvp-form");
 const commentSection = document.getElementById("comment-section");
@@ -233,34 +171,30 @@ form.addEventListener("submit", async (e) => {
 async function loadComments() {
   commentSection.innerHTML = "";
   const q = query(collection(db, "comments"), orderBy("timestamp", "desc"));
+  const querySnapshot = await getDocs(q);
 
-  try {
-    const querySnapshot = await getDocs(q);
-    querySnapshot.forEach((doc) => {
-      const data = doc.data();
-      const time = data.timestamp ? new Date(data.timestamp.seconds * 1000) : new Date();
-      const formattedTime = time.toLocaleString('id-ID');
+  querySnapshot.forEach((doc) => {
+    const data = doc.data();
+    const time = data.timestamp?.seconds ? new Date(data.timestamp.seconds * 1000) : new Date();
+    const formattedTime = time.toLocaleString('id-ID');
 
-      const div = document.createElement("div");
-      div.classList.add("comment-card");
-      div.innerHTML = `
-        <div class="comment-name">
-          <strong>${data.name}</strong> <span class="attendance">(${data.attendance})</span>
-        </div>
-        <div class="comment-message">${data.message}</div>
-        <div class="comment-time">🕒 ${formattedTime}</div>
-      `;
-      commentSection.appendChild(div);
-    });
-  } catch (error) {
-    console.error("Error memuat komentar:", error);
-  }
+    const div = document.createElement("div");
+    div.classList.add("comment-card");
+    div.innerHTML = `
+      <div class="comment-name">
+        <strong>${data.name}</strong> <span class="attendance">(${data.attendance})</span>
+      </div>
+      <div class="comment-message">${data.message}</div>
+      <div class="comment-time">🕒 ${formattedTime}</div>
+    `;
+    commentSection.appendChild(div);
+  });
 }
 
 loadComments();
 
 // =======================
-// 10. Toggle dan Salin Info Rekening Hadiah
+// 10. Rekening Hadiah - Toggle & Copy
 // =======================
 const toggleGiftBtn = document.getElementById("toggleGiftBtn");
 const giftDetails = document.getElementById("giftDetails");
@@ -271,39 +205,17 @@ toggleGiftBtn.addEventListener("click", () => {
   giftDetails.style.display = giftDetails.style.display === "block" ? "none" : "block";
 });
 
-function showToast() {
-  toast.classList.add("show");
-  setTimeout(() => {
-    toast.classList.remove("show");
-  }, 2500);
-}
-
-function copyText(text) {
-  if (navigator.clipboard) {
-    return navigator.clipboard.writeText(text);
-  } else {
-    const textarea = document.createElement('textarea');
-    textarea.value = text;
-    document.body.appendChild(textarea);
-    textarea.select();
-    try {
-      document.execCommand('copy');
-    } catch (err) {
-      console.error('Fallback: Gagal menyalin teks', err);
-    }
-    document.body.removeChild(textarea);
-    return Promise.resolve();
-  }
-}
-
 copyBtn.onclick = () => {
   const rekeningText = document.getElementById('rekening-number').childNodes[0].nodeValue.trim();
-  copyText(rekeningText).then(() => {
-    showToast();
+  navigator.clipboard.writeText(rekeningText).then(() => {
+    toast.classList.add("show");
+    setTimeout(() => toast.classList.remove("show"), 2500);
   });
 };
 
-// Munculkan animasi saat scroll
+// =======================
+// 11. Scroll Animasi On Load
+// =======================
 const animateOnScroll = () => {
   const elements = document.querySelectorAll('[data-animate]');
   const triggerBottom = window.innerHeight * 0.85;

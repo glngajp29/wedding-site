@@ -1,89 +1,126 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Welcome to Firebase Hosting</title>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Undangan Rofiq dan Riya</title>
 
-    <!-- update the version number as needed -->
-    <script defer src="/__/firebase/11.7.3/firebase-app-compat.js"></script>
-    <!-- include only the Firebase features as you need -->
-    <script defer src="/__/firebase/11.7.3/firebase-auth-compat.js"></script>
-    <script defer src="/__/firebase/11.7.3/firebase-database-compat.js"></script>
-    <script defer src="/__/firebase/11.7.3/firebase-firestore-compat.js"></script>
-    <script defer src="/__/firebase/11.7.3/firebase-functions-compat.js"></script>
-    <script defer src="/__/firebase/11.7.3/firebase-messaging-compat.js"></script>
-    <script defer src="/__/firebase/11.7.3/firebase-storage-compat.js"></script>
-    <script defer src="/__/firebase/11.7.3/firebase-analytics-compat.js"></script>
-    <script defer src="/__/firebase/11.7.3/firebase-remote-config-compat.js"></script>
-    <script defer src="/__/firebase/11.7.3/firebase-performance-compat.js"></script>
-    <!-- 
-      initialize the SDK after all desired features are loaded, set useEmulator to false
-      to avoid connecting the SDK to running emulators.
-    -->
-    <script defer src="/__/firebase/init.js?useEmulator=true"></script>
+  <!-- Firebase hanya untuk Firestore -->
+  <script src="https://www.gstatic.com/firebasejs/11.7.3/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/11.7.3/firebase-firestore-compat.js"></script>
 
-    <style media="screen">
-      body { background: #ECEFF1; color: rgba(0,0,0,0.87); font-family: Roboto, Helvetica, Arial, sans-serif; margin: 0; padding: 0; }
-      #message { background: white; max-width: 360px; margin: 100px auto 16px; padding: 32px 24px; border-radius: 3px; }
-      #message h2 { color: #ffa100; font-weight: bold; font-size: 16px; margin: 0 0 8px; }
-      #message h1 { font-size: 22px; font-weight: 300; color: rgba(0,0,0,0.6); margin: 0 0 16px;}
-      #message p { line-height: 140%; margin: 16px 0 24px; font-size: 14px; }
-      #message a { display: block; text-align: center; background: #039be5; text-transform: uppercase; text-decoration: none; color: white; padding: 16px; border-radius: 4px; }
-      #message, #message a { box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24); }
-      #load { color: rgba(0,0,0,0.4); text-align: center; font-size: 13px; }
-      @media (max-width: 600px) {
-        body, #message { margin-top: 0; background: white; box-shadow: none; }
-        body { border-top: 16px solid #ffa100; }
-      }
-    </style>
-  </head>
-  <body>
-    <div id="message">
-      <h2>Welcome</h2>
-      <h1>Firebase Hosting Setup Complete</h1>
-      <p>You're seeing this because you've successfully setup Firebase Hosting. Now it's time to go build something extraordinary!</p>
-      <a target="_blank" href="https://firebase.google.com/docs/hosting/">Open Hosting Documentation</a>
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyD_pcQQfzF_0khbjwpG_IxTqpdVrXysWSc",
+      authDomain: "rayarofiqwedding.firebaseapp.com",
+      projectId: "rayarofiqwedding",
+      storageBucket: "rayarofiqwedding.appspot.com",
+      messagingSenderId: "168418586866",
+      appId: "1:168418586866:web:632af302bd422bdbd8e06b",
+      measurementId: "G-WBTPMHRG1C"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+  </script>
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <div class="hero" id="hero">
+    <div class="overlay"></div>
+    <div class="hero-content" id="heroContent">
+      <div class="line">The Wedding of</div>
+      <div class="line">Rofiq & Riya</div>
+      <div class="line">Sabtu, 31 Oktober 2025</div>
+
+      <div class="invitation">
+        <div class="line">Kepada Yth.</div>
+        <div class="line">Bapak/Ibu/Saudara/i:</div>
+        <div class="line" id="guestName">[Nama Tamu Undangan]</div>
+        <div class="line">Di tempat.</div>
+      </div>
+
+      <audio id="backgroundMusic" src="lesung-pipi.mp3" loop></audio>
+      <button class="btn" id="openBtn">Buka Undangan</button>
     </div>
-    <p id="load">Firebase SDK Loading&hellip;</p>
+  </div>
 
-    <script>
-      document.addEventListener('DOMContentLoaded', function() {
-        const loadEl = document.querySelector('#load');
-        // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
-        // // The Firebase SDK is initialized and available here!
-        //
-        // firebase.auth().onAuthStateChanged(user => { });
-        // firebase.database().ref('/path/to/ref').on('value', snapshot => { });
-        // firebase.firestore().doc('/foo/bar').get().then(() => { });
-        // firebase.functions().httpsCallable('yourFunction')().then(() => { });
-        // firebase.messaging().requestPermission().then(() => { });
-        // firebase.storage().ref('/path/to/ref').getDownloadURL().then(() => { });
-        // firebase.analytics(); // call to activate
-        // firebase.analytics().logEvent('tutorial_completed');
-        // firebase.performance(); // call to activate
-        //
-        // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
+  <main id="main-content" style="display: none;">
+    <section id="countdown" class="section">
+      <h2>MENUJU HARI BAHAGIA</h2>
+      <h2>ROFIQ & RIYA</h2>
+      <div id="timer">Memuat...</div>
+    </section>
 
-        try {
-          let app = firebase.app();
-          let features = [
-            'auth', 
-            'database', 
-            'firestore',
-            'functions',
-            'messaging', 
-            'storage', 
-            'analytics', 
-            'remoteConfig',
-            'performance',
-          ].filter(feature => typeof app[feature] === 'function');
-          loadEl.textContent = `Firebase SDK loaded with ${features.join(', ')}`;
-        } catch (e) {
-          console.error(e);
-          loadEl.textContent = 'Error loading the Firebase SDK, check the console.';
-        }
-      });
-    </script>
-  </body>
+    <section class="quote-section">
+      <blockquote>
+        "Dan di antara tanda-tanda (kebesaran)-Nya ialah Dia menciptakan pasangan-pasangan untukmu dari jenismu sendiri..."
+      </blockquote>
+      <p>(QS. Ar-Rum: 21)</p>
+    </section>
+
+    <section class="couple-section">
+      <div>
+        <h3>Riya</h3>
+        <p>Siti Nur Mariana</p>
+        <p>Putri dari Bapak Hambali & Ibu Minarti</p>
+      </div>
+      <div>
+        <h3>Rofiq</h3>
+        <p>ABD Rofiq</p>
+        <p>Putra dari Bapak (Alm.) Makki & Ibu Sumayyah</p>
+      </div>
+    </section>
+
+    <section id="acara" class="section">
+      <h3>Akad</h3>
+      <p>Sabtu, 31 Oktober 2025</p>
+      <p>08.00 WIB</p>
+      <h3>Resepsi</h3>
+      <p>11.00 WIB - Selesai</p>
+      <h3>Alamat</h3>
+      <p>Tambelangan, Sampang, Jawa Timur</p>
+      <a href="https://www.google.com/maps?q=-7.059445,113.1650267" target="_blank">Lihat Lokasi</a>
+    </section>
+
+    <section class="rsvp-section">
+      <h2>RSVP</h2>
+      <form id="rsvp-form">
+        <input type="text" id="guest-name" placeholder="Nama" required />
+        <textarea id="guest-message" placeholder="Ucapan & doa" rows="4" required></textarea>
+        <select id="guest-attendance" required>
+          <option value="" disabled selected>Konfirmasi Kehadiran</option>
+          <option value="Hadir">Hadir</option>
+          <option value="Tidak Hadir">Tidak Hadir</option>
+          <option value="Masih Ragu">Masih Ragu</option>
+        </select>
+        <button type="submit">Kirim</button>
+      </form>
+
+      <div id="comment-section">
+        <!-- Komentar dari Firestore akan muncul di sini -->
+      </div>
+    </section>
+
+    <section class="gift-section">
+      <h2>Wedding Love Gift</h2>
+      <button id="toggleGiftBtn">Kirim Hadiah</button>
+      <div id="giftDetails" style="display:none;">
+        <img src="atm.png" alt="ATM Info" />
+        <p>1234567890<br /><span>a.n. Nama Mempelai</span></p>
+        <button id="copyBtn">Copy Rekening</button>
+      </div>
+    </section>
+
+    <footer>
+      <p>Terima kasih atas doa dan restunya 🙏</p>
+    </footer>
+  </main>
+
+  <div id="toast" class="toast">Berhasil disalin!</div>
+
+  <script src="script.js"></script>
+</body>
 </html>

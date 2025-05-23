@@ -53,10 +53,8 @@ function openInvitation() {
 document.body.classList.add('noscroll');
 const openBtn = document.getElementById('openBtn');
 openBtn.addEventListener('click', () => {
-  const mainContent = document.getElementById('main-content');
   document.body.classList.remove('noscroll');
-  mainContent.style.display = 'block';
-  mainContent.scrollIntoView({ behavior: 'smooth' });
+  document.getElementById('main-content').scrollIntoView({ behavior: 'smooth' });
   openBtn.classList.add('hide');
   setTimeout(() => openBtn.style.display = 'none', 1000);
 });
@@ -123,7 +121,7 @@ openBtn.addEventListener('click', () => {
 });
 
 // =======================
-// 8. Firebase Firestore Setup
+// 8. Firebase Firestore Setup (Tanpa Hosting)
 // =======================
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
 import {
@@ -135,10 +133,9 @@ const firebaseConfig = {
   apiKey: "AIzaSyD_pcQQfzF_0khbjwpG_IxTqpdVrXysWSc",
   authDomain: "rayarofiqwedding.firebaseapp.com",
   projectId: "rayarofiqwedding",
-  storageBucket: "rayarofiqwedding.firebasestorage.app",
+  storageBucket: "rayarofiqwedding.appspot.com",
   messagingSenderId: "168418586866",
-  appId: "1:168418586866:web:632af302bd422bdbd8e06b",
-  measurementId: "G-WBTPMHRG1C"
+  appId: "1:168418586866:web:632af302bd422bdbd8e06b"
 };
 
 const app = initializeApp(firebaseConfig);
@@ -181,9 +178,7 @@ async function loadComments() {
     const div = document.createElement("div");
     div.classList.add("comment-card");
     div.innerHTML = `
-      <div class="comment-name">
-        <strong>${data.name}</strong> <span class="attendance">(${data.attendance})</span>
-      </div>
+      <div class="comment-name"><strong>${data.name}</strong> <span class="attendance">(${data.attendance})</span></div>
       <div class="comment-message">${data.message}</div>
       <div class="comment-time">🕒 ${formattedTime}</div>
     `;
